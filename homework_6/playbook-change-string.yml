@@ -1,0 +1,26 @@
+---
+- name: Install nginx and change string
+  hosts: front
+  become: true
+  vars:
+    - foo: boo
+  tasks:  
+    - name: Install nginx
+      apt:
+        name: nginx
+        update_cache: yes
+        state: present
+    - name: Change a bucket size 
+      lineinfile: 
+        path: /etc/nginx/nginx.conf
+        regexp: '^(.*)# server_names_hash_bucket_size 64(.*)$'
+        line: 'server_names_hash_bucket_size 256;'
+        backrefs: yes
+    - name: Do default site as forbiden
+      copy:
+        src: default.j2
+        dest: /etc/nginx/sites-available/default
+    - name: Restart nginx after redeploy config
+      service:
+        name: nginx
+        state: restarted

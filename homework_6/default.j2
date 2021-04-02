@@ -1,0 +1,19 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	return 403;
+}
+
+server {
+	listen 80;
+	listen [::]:80;
+	
+	server_name ec2-54-229-47-15.eu-west-1.compute.amazonaws.com;
+
+	root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+}
