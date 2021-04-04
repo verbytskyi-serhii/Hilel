@@ -1,0 +1,10 @@
+---
+domain_names: 
+  - url: serhiiverbytskyi.pp.ua
+    backend: "127.0.0.1"
+common_packges:
+  - mc
+  - htop
+  - vim
+  - net-tools
+  - nginx

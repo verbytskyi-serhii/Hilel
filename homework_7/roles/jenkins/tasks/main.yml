@@ -1,0 +1,27 @@
+---
+- name: Install packges
+  apt:
+    name: '{{ item }}'
+    update_cache: yes
+    state: present
+  loop: '{{ packges }}'
+
+- name: Add Jenkins kye
+  apt_key:
+    url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+    state: present
+
+- name: Add Jenkins Repository
+  apt_repository:
+    repo: deb https://pkg.jenkins.io/debian-stable binary/
+    state: present
+
+- name: Install Jenkins
+  apt:
+    name: jenkins
+    state: present
+
+- name: Set jenkins_url fact for HTTP
+  set_fact:
+    jenkins_url: "http://{{ jenkins_hostname }}:{{ jenkins_port }}"
+  when: jenkins_port != "-1" and jenkins_url is not defined

@@ -3,7 +3,7 @@
   hosts: front
   become: true
   vars:
-    - foo: boo
+    - foo: bar
   tasks:  
     - name: Install nginx
       apt:

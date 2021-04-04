@@ -1,0 +1,31 @@
+---
+- name: Install common_packges
+  apt:
+    name: '{{ item }}'
+    update_cache: yes
+    state: present
+  loop: '{{ common_packges }}'
+
+- name: Change a bucket size 
+  lineinfile: 
+    path: /etc/nginx/nginx.conf
+    regexp: '^(.*)# server_names_hash_bucket_size 64(.*)$'
+    line: 'server_names_hash_bucket_size 256;'
+    backrefs: yes
+
+- name: Do default site as forbiden
+  copy:  
+    src: default.j2
+    dest: /etc/nginx/sites-available/default
+
+- name: Deploy config for virtual servers
+  template:
+    src: server.j2
+    dest: "/etc/nginx/conf.d/{{ domain.url }}.conf"
+    mode: '0644'
+  loop: '{{ domain_names }}'
+  loop_control:
+    loop_var: domain
+  vars:
+    domain_name: '{{ domain.url }}'
+    backend_server: '{{ domain.backend }}'

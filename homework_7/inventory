@@ -1,0 +1,6 @@
+server1 ansible_host=ec2-34-245-71-185.eu-west-1.compute.amazonaws.com
+server2 ansible_host=ec2-3-249-93-34.eu-west-1.compute.amazonaws.com
+[front]
+server1
+[backend]
+server2

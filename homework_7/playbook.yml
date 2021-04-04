@@ -1,0 +1,12 @@
+---
+- name: Install Jenkins
+  hosts: backend
+  become: true
+  roles: 
+    - role: jenkins
+
+- name: Install Nginx
+  hosts: front
+  become: true
+  roles: 
+    - role: nginx
