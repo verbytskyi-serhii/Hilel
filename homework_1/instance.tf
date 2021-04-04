@@ -8,7 +8,6 @@ resource "aws_instance" "lesson1" {
   instance_type = "t2.micro"
 }
 
-
 terraform {
   backend "s3" {
     bucket = "lesson1-bucket"
