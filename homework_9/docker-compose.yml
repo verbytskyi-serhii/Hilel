@@ -1,0 +1,29 @@
+---
+version: "3.7"
+
+services:
+  nginx:
+    image: nginx
+    configs:
+      - source: hillel-nginx-config
+        target: /etc/nginx/conf.d/default.conf 
+    networks: 
+      - internal
+    ports:
+      - "8888:80"
+  jenkins:
+    image: jenkins/jenkins:lts
+    volumes:
+      - "/home/serhii/jenkins_home:/var/jenkins_home"
+    networks: 
+      - internal
+
+configs:
+  hillel-nginx-config:
+    external: true
+
+networks:
+  internal: {}
+
+volumes:
+  jenkins_home: {}
