@@ -1,10 +1,10 @@
 ---
-- name: Install packges
+- name: Install packages
   apt:
     name: '{{ item }}'
     update_cache: yes
     state: present
-  loop: '{{ packges }}'
+  loop: '{{ packages }}'
 
 - name: Add Jenkins kye
   apt_key:
